@@ -16,17 +16,17 @@ resource "aws_vpc" "easy-food-vpc" {
 
 # Criar subredes públicas
 resource "aws_subnet" "public_subnet" {
-  count      = length(var.public_subnet_cidr_blocks)
-  vpc_id     = aws_vpc.easy-food-vpc.id
-  cidr_block = var.public_subnet_cidr_blocks[count.index]
+  count             = length(var.public_subnet_cidr_blocks)
+  vpc_id            = aws_vpc.easy-food-vpc.id
+  cidr_block        = var.public_subnet_cidr_blocks[count.index]
   availability_zone = var.availability_zones[count.index]
 }
 
 # Criar subredes privadas
 resource "aws_subnet" "private_subnet" {
-  count      = length(var.private_subnet_cidr_blocks)
-  vpc_id     = aws_vpc.easy-food-vpc.id
-  cidr_block = var.private_subnet_cidr_blocks[count.index]
+  count             = length(var.private_subnet_cidr_blocks)
+  vpc_id            = aws_vpc.easy-food-vpc.id
+  cidr_block        = var.private_subnet_cidr_blocks[count.index]
   availability_zone = var.availability_zones[count.index]
 }
 
@@ -70,7 +70,7 @@ resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.easy-food-vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.my_nat_gateway.id
   }
 }
@@ -80,27 +80,4 @@ resource "aws_route_table_association" "private_subnet_association" {
   count          = length(var.private_subnet_cidr_blocks)
   subnet_id      = aws_subnet.private_subnet[count.index].id
   route_table_id = aws_route_table.private_route_table.id
-}
-
-resource "aws_security_group" "security_group" {
-  name        = "security-group-eks"
-  description = "Security Group EKS"
-
-  vpc_id = aws_vpc.easy-food-vpc.id
-
-  # Regra de entrada permitindo todo o tráfego
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # Regra de saída permitindo todo o tráfego
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }

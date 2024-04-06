@@ -5,7 +5,7 @@ provider "aws" {
 
 module "vpc" {
   source = "./vpc"
-  
+
   vpc_cidr_block             = "10.0.0.0/16"
   vpc_name                   = "easy-food-vpc"
   public_subnet_cidr_blocks  = ["10.0.1.0/24", "10.0.2.0/24"]
@@ -13,10 +13,9 @@ module "vpc" {
   availability_zones         = ["us-east-1a", "us-east-1b"]
 }
 
-
 module "eks" {
   source = "./eks"
-  
+
   cluster_name        = "easy-food-eks"
   cluster_role_arn    = var.role_aws_academy
   principal_arn       = var.principal_arn
