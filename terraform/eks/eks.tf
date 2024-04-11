@@ -27,7 +27,8 @@ resource "aws_eks_cluster" "easy-food-eks" {
   version  = var.cluster_version
 
   vpc_config {
-    subnet_ids = var.subnet_ids
+    subnet_ids         = var.subnet_ids
+    security_group_ids = var.security_group_ids
   }
 
   access_config {

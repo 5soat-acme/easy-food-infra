@@ -23,10 +23,14 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "security_group_ids" {
+  description = "IDs dos grupos de segurança"
+  type        = list(string)
+}
+
 variable "access_config" {
   description = "Configurações de acesso"
 }
-
 
 variable "node_group_name" {
   description = "Name do grupo de nós para do EKS"
