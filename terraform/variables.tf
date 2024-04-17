@@ -19,11 +19,11 @@ variable "policy_access_arn" {
 variable "subnets_id" {
   description = "Subnets IDs"
   type        = list(string)
-  default     = ["subnet-0e1049d1e76b7ed69", "subnet-07f5f89d427187b63", "subnet-0ed2305a0ac0f800d"]
+  default     = ["subnet-03590703377fac860", "subnet-08e1e83f7a2ce4f17", "subnet-0ad1def8daf2f88ee"]
 }
 
 variable "security_group_ids" {
   description = "Security Groups IDs"
   type        = list(string)
-  default     = ["sg-0abcba9c064b73cbf"]
+  default     = ["sg-000935136986ff5b7"]
 }

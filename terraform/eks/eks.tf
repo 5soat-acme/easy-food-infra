@@ -79,7 +79,8 @@ resource "kubernetes_namespace" "nginx-ingress" {
   }
 
   depends_on = [
-    aws_eks_cluster.easy-food-eks
+    aws_eks_cluster.easy-food-eks,
+    aws_eks_node_group.node_group
   ]
 }
 
