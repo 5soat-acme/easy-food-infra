@@ -85,3 +85,12 @@ jobs:
     - name: Terraform Apply
       if: github.event_name == 'pull_request'
       run: terraform apply -auto-approve -input=false
+
+    - name: Apply Manifest K8S - EKS
+      run: |
+        aws eks update-kubeconfig --region us-east-1 --name easy-food-eks
+        kubectl apply -f "../kubernetes/secret.yaml"
+        kubectl apply -f "../kubernetes/hpa.yaml"
+        kubectl apply -f "../kubernetes/deployment.yaml"
+        kubectl apply -f "../kubernetes/service.yaml"
+        kubectl apply -f "../kubernetes/ingress.yaml"
