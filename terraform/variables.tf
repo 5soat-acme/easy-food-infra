@@ -1,29 +1,43 @@
-variable "role_aws_academy" {
-  description = "Role"
-  type        = string
-  default     = "arn:aws:iam::471112648522:role/LabRole"
+variable "projectName" {
+  default = "easy-food"
 }
 
-variable "principal_arn" {
-  description = "Principal ARN"
-  type        = string
-  default     = "arn:aws:iam::471112648522:role/voclabs"
+variable "vpcId" {
+  default = "vpc-0d7c60ea0dd8f23db"
 }
 
-variable "policy_access_arn" {
-  description = "Política de acesso ARN"
-  type        = string
-  default     = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+variable "subnetA" {
+  default = "subnet-0eadcaa4fa9230e1f"
 }
 
-variable "subnets_id" {
-  description = "Subnets IDs"
-  type        = list(string)
-  default     = ["subnet-040f6c75e5705ef7f", "subnet-0b7b2415e7e3be5e9", "subnet-09c3f8f93727d0e40"]
+variable "subnetB" {
+  default = "subnet-0875a005566f2065f"
 }
 
-variable "security_group_ids" {
-  description = "Security Groups IDs"
-  type        = list(string)
-  default     = ["sg-02185146b549f752f"]
+variable "subnetC" {
+  default = "subnet-0da2aa7ea97d82204"
+}
+
+variable "labRole" {
+  default = "arn:aws:iam::471112648522:role/LabRole"
+}
+
+variable "principalArn" {
+  default = "arn:aws:iam::471112648522:role/voclabs"
+}
+
+variable "policyArn" {
+  default = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+}
+
+variable "clusterVersion" {
+  default = "1.27"
+}
+
+variable "accessConfig" {
+  default = "API_AND_CONFIG_MAP"
+}
+
+variable "instanceType" {
+  default = "t3.micro"
 }
