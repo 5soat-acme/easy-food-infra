@@ -7,10 +7,11 @@ Os arquivos Terraform contidos nesse repositório cria a seguinte infraestrutura
 - Cluster EKS com um node group
 - Instala e configura no cluster EKS um Ingress NGINX Controller.
 
-**Obs.:** Necessário informar no arquivo **terraform/variables.tf** as informações referentes a VPC da conta da AWS Academy
+**Obs.:** Necessário informar no arquivo **terraform/variables.tf** as informações referentes a VPC e as Roles da conta da AWS Academy
 
 ## Workflow - Github Action
-O repositório ainda conta com um workflow para criar a infraestrutura na AWS quando houver **push** na branch **main**.
+O repositório ainda conta com um workflow para criar a infraestrutura na AWS quando houver **push** na branch **main**. Ao final do workflow, é aplicado os manifestos kubernetes na infraestrutura criada. Os manifestos estão na pasta **kubernetes**.
+- Necessário configurar o **appsettings.json** dentro do manifesto **kubernetes/service.yaml** de acordo com o ednpoint, usuário e senha do Cluster RDS Aurora PostgreSQL criado pelo repositório **[easy-food-infra-database](https://github.com/5soat-acme/easy-food-infra-database)**.
 
 Para o correto funcionamento do workflow é necessário configurar as seguintes secrets no repositório, de acordo com a conta da AWS Academy:
 - AWS_ACCESS_KEY_ID
