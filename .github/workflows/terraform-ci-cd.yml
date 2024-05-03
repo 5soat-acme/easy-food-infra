@@ -7,9 +7,11 @@ on:
       - main
     paths:
       - 'terraform/**'
+      - 'kubernetes/**'
   pull_request:
     paths:
       - 'terraform/**'
+      - 'kubernetes/**'
 
 jobs:
   terraform:
