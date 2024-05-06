@@ -3,27 +3,27 @@ variable "projectName" {
 }
 
 variable "vpcId" {
-  default = "vpc-0b487ce478bbfd0e7"
+  default = "vpc-0fdbfd195de9f24e2"
 }
 
 variable "subnetA" {
-  default = "subnet-02d666d6425af6722"
+  default = "subnet-0a6b5b54757db7dbd"
 }
 
 variable "subnetB" {
-  default = "subnet-05197ae35fa1c7bab"
+  default = "subnet-0018d798f4bda6150"
 }
 
 variable "subnetC" {
-  default = "subnet-07a778975c3b70443"
+  default = "subnet-0a6236bfdc22792b4"
 }
 
 variable "labRole" {
-  default = "arn:aws:iam::471112648522:role/LabRole"
+  default = "arn:aws:iam::610659164388:role/LabRole"
 }
 
 variable "principalArn" {
-  default = "arn:aws:iam::471112648522:role/voclabs"
+  default = "arn:aws:iam::610659164388:role/voclabs"
 }
 
 variable "policyArn" {
