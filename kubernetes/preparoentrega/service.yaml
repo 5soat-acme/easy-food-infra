@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: easy-food-api
+  name: easy-food-preparoentrega-api
 spec:
   type: ClusterIP
   ports:
@@ -10,4 +10,4 @@ spec:
       port: 8080
       targetPort: 80
   selector:
-    app: easy-food-api
+    app: easy-food-preparoentrega-api

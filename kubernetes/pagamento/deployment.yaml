@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: easy-food-api
+  name: easy-food-pagamento-api
 spec:
   selector:
     matchLabels:
-      app: easy-food-api
+      app: easy-food-pagamento-api
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -14,20 +14,20 @@ spec:
   template:
     metadata:
       labels:
-        app: easy-food-api
+        app: easy-food-pagamento-api
     spec:
       volumes:
         - name: appsettings
           secret:
-            secretName: easy-food-api-secrets
+            secretName: easy-food-pagamento-api-secrets
             defaultMode: 420
         - name: tz-config
           hostPath:
             path: /usr/share/zoneinfo/America/Sao_Paulo
             type: File
       containers:
-        - name: easy-food-api
-          image: 5soatacme/easy-food
+        - name: easy-food-pagamento-api
+          image: 5soatacme/easy-food-pagamento
           imagePullPolicy: IfNotPresent
           env:
             - name: ASPNETCORE_URLS

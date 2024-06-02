@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: easy-food-api
+  name: easy-food-preparoentrega-api
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: easy-food-api
+    name: easy-food-preparoentrega-api
   minReplicas: 2
   maxReplicas: 4
   metrics:

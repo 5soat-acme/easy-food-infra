@@ -2,15 +2,36 @@ kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
   name: easy-food-api
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /
+          - path: /pedido(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: easy-food-api
+                name: easy-food-pedido-api
+                port:
+                  number: 8080
+    - http:
+        paths:
+          - path: /pagamento(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: easy-food-pagamento-api
+                port:
+                  number: 8080
+    - http:
+        paths:
+          - path: /preparoentrega(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: easy-food-preparoentrega-api
                 port:
                   number: 8080
