@@ -93,6 +93,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
       run: |
         aws eks update-kubeconfig --region us-east-1 --name easy-food
+        kubectl apply -f "../kubernetes/secret_aws.yaml"
         kubectl apply -f "../kubernetes/pedido/secret.yaml"
         kubectl apply -f "../kubernetes/pedido/hpa.yaml"
         kubectl apply -f "../kubernetes/pedido/deployment.yaml"
