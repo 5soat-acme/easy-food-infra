@@ -29,10 +29,10 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        AWS-ACCESS-KEY-ID: ${{ SECRETS.AWS_ACCESS_KEY_ID }}
-        AWS-SECRET-ACCESS-KEY: ${{ SECRETS.AWS_SECRET_ACCESS_KEY }}
-        AWS-SESSION-TOKEN: ${{ SECRETS.AWS_SESSION_TOKEN }}
-        AWS-REGION: "us-east-1"
+        AWS-ACCESS-KEY-ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS-SECRET-ACCESS-KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS-SESSION-TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+        AWS-REGION: ${{ secrets.AWS_REGION }}
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -62,7 +62,7 @@ jobs:
     - name: Apply Manifest K8S - EKS
       if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
       run: |
-        aws eks update-kubeconfig --region us-east-1 --name easy-food
+        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name easy-food
         kubectl apply -f "../kubernetes/secret_aws.yaml"
         kubectl apply -f "../kubernetes/pedido/secret.yaml"
         kubectl apply -f "../kubernetes/pedido/hpa.yaml"
