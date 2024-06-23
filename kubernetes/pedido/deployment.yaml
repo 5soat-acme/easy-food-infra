@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easy-food-pedido-api
+spec:
+  selector:
+    matchLabels:
+      app: easy-food-pedido-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0%
+  template:
+    metadata:
+      labels:
+        app: easy-food-pedido-api
+    spec:
+      volumes:
+        - name: appsettings
+          secret:
+            secretName: easy-food-pedido-api-secrets
+            defaultMode: 420
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/America/Sao_Paulo
+            type: File
+      containers:
+        - name: easy-food-pedido-api
+          image: 5soatacme/easy-food-pedido
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+            - name: AWS_ACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  name: easy-food-aws-secrets
+                  key: AWS_ACCESSKEY
+            - name: AWS_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: easy-food-aws-secrets
+                  key: AWS_SECRETKEY
+            - name: AWS_SESSIONTOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: easy-food-aws-secrets
+                  key: AWS_SESSIONTOKEN
+            - name: AWS_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: easy-food-aws-secrets
+                  key: AWS_REGION
+          volumeMounts:
+            - name: appsettings
+              mountPath: /app/appsettings.json
+              subPath: appsettings.json
+            - name: tz-config
+              mountPath: /etc/localtime
+          resources:
+            limits:
+              cpu: "240m"
+              memory: "400Mi"
+            requests:
+              cpu: "60m"
+              memory: "180Mi"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      imagePullSecrets:
+        - name: regcred
