@@ -1,3 +1,22 @@
+resource "aws_sqs_queue" "pagamento_criado_dlq" {
+  name                       = "PagamentoCriado-dlq"
+  visibility_timeout_seconds = 30
+  delay_seconds              = 0
+  receive_wait_time_seconds  = 0
+}
+
+resource "aws_sqs_queue" "pagamento_criado" {
+  name                       = "PagamentoCriado"
+  visibility_timeout_seconds = 30
+  delay_seconds              = 0
+  receive_wait_time_seconds  = 0
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.pagamento_criado_dlq.arn
+    maxReceiveCount     = 3
+  })
+}
+
 resource "aws_sqs_queue" "pagamento_autorizado_dlq" {
   name                       = "PagamentoAutorizado-dlq"
   visibility_timeout_seconds = 30
@@ -13,6 +32,25 @@ resource "aws_sqs_queue" "pagamento_autorizado" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.pagamento_autorizado_dlq.arn
+    maxReceiveCount     = 3
+  })
+}
+
+resource "aws_sqs_queue" "pagamento_recusado_dlq" {
+  name                       = "PagamentoRecusado-dlq"
+  visibility_timeout_seconds = 30
+  delay_seconds              = 0
+  receive_wait_time_seconds  = 0
+}
+
+resource "aws_sqs_queue" "pagamento_recusado" {
+  name                       = "PagamentoRecusado"
+  visibility_timeout_seconds = 30
+  delay_seconds              = 0
+  receive_wait_time_seconds  = 0
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.pagamento_recusado_dlq.arn
     maxReceiveCount     = 3
   })
 }
