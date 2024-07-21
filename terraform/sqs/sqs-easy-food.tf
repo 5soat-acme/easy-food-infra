@@ -1,18 +1,18 @@
-resource "aws_sqs_queue" "pagamento_criado_dlq" {
-  name                       = "PagamentoCriado-dlq"
+resource "aws_sqs_queue" "pedido_criado_dlq" {
+  name                       = "PedidoCriado-dlq"
   visibility_timeout_seconds = 30
   delay_seconds              = 0
   receive_wait_time_seconds  = 0
 }
 
-resource "aws_sqs_queue" "pagamento_criado" {
-  name                       = "PagamentoCriado"
+resource "aws_sqs_queue" "pedido_criado" {
+  name                       = "PedidoCriado"
   visibility_timeout_seconds = 30
   delay_seconds              = 0
   receive_wait_time_seconds  = 0
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = aws_sqs_queue.pagamento_criado_dlq.arn
+    deadLetterTargetArn = aws_sqs_queue.pedido_criado_dlq.arn
     maxReceiveCount     = 3
   })
 }
